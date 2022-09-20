@@ -100,16 +100,17 @@ variable "region" {
 # NETWORK #
 ###########
 
-variable "subnets" {
-  type        = list(map(string))
-  description = "The list of subnets being created."
-  default     = []
-
-  validation {
-    condition     = length(var.subnets) > 0
-    error_message = "Subnets cannot be an empty list."
-  }
-}
+# @Wayne: skip 
+#variable "subnets" {
+#  type        = list(map(string))
+#  description = "The list of subnets being created."
+#  default     = []
+#
+#  validation {
+#    condition     = length(var.subnets) > 0
+#    error_message = "Subnets cannot be an empty list."
+#  }
+#}
 
 variable "mtu" {
   type        = number
@@ -377,6 +378,9 @@ EOD
     static_ip            = string
     tags                 = list(string)
     zone                 = string
+    service_account      = object({email = string, scopes = list(string)})
+    subnetwork_project   = string
+    subnetwork           = string
   })
   default = {
     access_config            = []
@@ -410,6 +414,9 @@ EOD
     subnetwork               = null
     tags                     = []
     zone                     = null
+    service_account          = null
+    subnetwork_project       = null
+    subnetwork               = null
   }
 }
 
@@ -474,6 +481,9 @@ EOD
     static_ips           = list(string)
     tags                 = list(string)
     zone                 = string
+    service_account      = object({email = string, scopes = list(string)})
+    subnetwork_project   = string
+    subnetwork           = string
   }))
   default = []
 }
@@ -500,11 +510,14 @@ EOD
       content  = string
     }))
     partition_name = string
+    subnetwork_project = string
+    subnetwork = string
     partition_nodes = list(object({
       node_count_static      = number
       node_count_dynamic_max = number
       group_name             = string
       node_conf              = map(string)
+      service_account        = object({email = string, scopes = list(string)})
       additional_disks = list(object({
         disk_name    = string
         device_name  = string
@@ -559,9 +572,9 @@ EOD
       remote_mount  = string
       mount_options = string
     }))
-    region            = string
-    zone_policy_allow = list(string)
-    zone_policy_deny  = list(string)
+    region             = string
+    zone_policy_allow  = list(string)
+    zone_policy_deny   = list(string)
   }))
   default = []
 }
