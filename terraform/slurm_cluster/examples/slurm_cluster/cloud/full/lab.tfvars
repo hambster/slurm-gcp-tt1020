@@ -174,7 +174,7 @@ controller_instance_config = {
   disk_type              = "pd-ssd"
   enable_confidential_vm = false
   enable_oslogin         = true
-  enable_shielded_vm     = false
+  enable_shielded_vm     = true
   gpu                    = null
   labels = {
     # label0 = "value0"
@@ -182,6 +182,7 @@ controller_instance_config = {
   }
   machine_type = "n1-standard-4"
   metadata = {
+    block-project-ssh-keys = "TRUE"
     # metadata0 = "value0"
     # metadata1 = "value1"
   }
@@ -194,7 +195,7 @@ controller_instance_config = {
     enable_secure_boot          = true
     enable_vtpm                 = true
   }
-  source_image_family  = "schedmd-v5-slurm-22-05-2-hpc-centos-7-1658434720-2"
+  source_image_family  = "schedmd-v5-slurm-22-05-4-hpc-centos-7-1665675565"
   source_image_project = "projects/wayne-eda-demo-service/global/images"
   source_image         = null
   tags = [
@@ -236,16 +237,22 @@ login_nodes = [
     disk_type                = "pd-standard"
     enable_confidential_vm   = false
     enable_oslogin           = true
-    enable_shielded_vm       = false
+    enable_shielded_vm       = true
     gpu                      = null
     labels                   = {}
     machine_type             = "n1-standard-2"
-    metadata                 = {}
+    metadata                 = {
+      block-project-ssh-keys = "TRUE"
+    }
     min_cpu_platform         = null
     on_host_maintenance      = null
     preemptible              = false
-    shielded_instance_config = null
-    source_image_family  = "schedmd-v5-slurm-22-05-2-hpc-centos-7-1658434720-2"
+    shielded_instance_config = {
+       enable_integrity_monitoring = true
+       enable_secure_boot          = true
+       enable_vtpm                 = true
+    }
+    source_image_family  = "schedmd-v5-slurm-22-05-4-hpc-centos-7-1665675565"
     source_image_project = "projects/wayne-eda-demo-service/global/images"
     source_image             = null
     tags                     = []
@@ -294,7 +301,7 @@ partitions = [
     partition_nodes = [
       {
         # Group Definition
-        group_name             = "test"
+        group_name             = "degug"
         service_account = {email: "hpcdemo-compute@wayne-eda-demo-service.iam.gserviceaccount.com", scopes: ["https://www.googleapis.com/auth/cloud-platform"]}
         node_count_dynamic_max = 20
         node_count_static      = 0
@@ -305,23 +312,29 @@ partitions = [
         # Template By Definition
         additional_disks         = []
         can_ip_forward           = false
-        disable_smt              = false
+        disable_smt              = true
         disk_auto_delete         = true
         disk_labels              = {}
         disk_size_gb             = 32
         disk_type                = "pd-standard"
         enable_confidential_vm   = false
         enable_oslogin           = true
-        enable_shielded_vm       = false
+        enable_shielded_vm       = true
         gpu                      = null
         labels                   = {}
-        machine_type             = "c2-standard-4"
-        metadata                 = {}
+        machine_type             = "n1-standard-4"
+        metadata                 = {
+          block-project-ssh-keys = "TRUE"
+        }
         min_cpu_platform         = null
         on_host_maintenance      = null
-        preemptible              = false
-        shielded_instance_config = null
-        source_image_family  = "schedmd-v5-slurm-22-05-2-hpc-centos-7-1658434720-2"
+        preemptible              = true
+        shielded_instance_config = {
+          enable_integrity_monitoring = true
+          enable_secure_boot          = false
+          enable_vtpm                 = true
+        }
+        source_image_family  = "schedmd-v5-slurm-22-05-4-hpc-centos-7-1665675565"
         source_image_project = "projects/wayne-eda-demo-service/global/images"
         source_image             = null
         tags                     = []
@@ -363,7 +376,7 @@ partitions = [
     partition_nodes = [
       {
         # Group Definition
-        group_name             = "test"
+        group_name             = "debug2"
         service_account = {email: "hpcdemo-compute@wayne-eda-demo-service.iam.gserviceaccount.com", scopes: ["https://www.googleapis.com/auth/cloud-platform"]}
         node_count_dynamic_max = 10
         node_count_static      = 0
@@ -379,19 +392,26 @@ partitions = [
         disk_type              = "pd-standard"
         enable_confidential_vm = false
         enable_oslogin         = true
-        enable_shielded_vm     = false
-        gpu = {
-          count = 1
-          type  = "nvidia-tesla-v100"
-        }
+        enable_shielded_vm     = true
+        gpu                    = null
+        #gpu = {
+        #  count = 1
+        #  type  = "nvidia-tesla-v100"
+        #}
         labels                   = {}
         machine_type             = "n1-standard-4"
-        metadata                 = {}
+        metadata                 = {
+          block-project-ssh-keys = "TRUE"
+        }
         min_cpu_platform         = null
         on_host_maintenance      = null
-        preemptible              = false
-        shielded_instance_config = null
-        source_image_family  = "schedmd-v5-slurm-22-05-2-hpc-centos-7-1658434720-2"
+        preemptible              = true
+        shielded_instance_config = {
+          enable_integrity_monitoring = true
+          enable_secure_boot          = false
+          enable_vtpm                 = true
+        }
+        source_image_family  = "schedmd-v5-slurm-22-05-4-hpc-centos-7-1665675565"
         source_image_project = "projects/wayne-eda-demo-service/global/images"
         source_image             = null
         tags                     = []
@@ -402,7 +422,7 @@ partitions = [
         # Instance Definition
         access_config  = []
         bandwidth_tier = "platform_default"
-        enable_spot_vm = false
+        enable_spot_vm = true
         spot_instance_config = {
           termination_action = "STOP"
         }
