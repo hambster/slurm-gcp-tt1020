@@ -322,7 +322,7 @@ partitions = [
         enable_shielded_vm       = true
         gpu                      = null
         labels                   = {}
-        machine_type             = "n2-standard-32"
+        machine_type             = "n1-standard-4"
         metadata                 = {
           block-project-ssh-keys = "TRUE"
         }
@@ -348,7 +348,7 @@ partitions = [
           #   network_tier = null
           # },
         ]
-        bandwidth_tier = "tier_1_enabled"
+        bandwidth_tier = "platform_default"
         enable_spot_vm = true
         spot_instance_config = {
           termination_action = "STOP"
@@ -377,6 +377,79 @@ partitions = [
       {
         # Group Definition
         group_name             = "debug2"
+        service_account = {email: "hpcdemo-compute@wayne-eda-demo-service.iam.gserviceaccount.com", scopes: ["https://www.googleapis.com/auth/cloud-platform"]}
+        node_count_dynamic_max = 10
+        node_count_static      = 0
+        node_conf              = {}
+
+        # Template By Definition
+        additional_disks       = []
+        can_ip_forward         = false
+        disable_smt            = false
+        disk_auto_delete       = true
+        disk_labels            = {}
+        disk_size_gb           = 32
+        disk_type              = "pd-standard"
+        enable_confidential_vm = false
+        enable_oslogin         = true
+        enable_shielded_vm     = true
+        gpu                    = null
+        #gpu = {
+        #  count = 1
+        #  type  = "nvidia-tesla-v100"
+        #}
+        labels                   = {}
+        machine_type             = "n1-standard-4"
+        metadata                 = {
+          block-project-ssh-keys = "TRUE"
+        }
+        min_cpu_platform         = null
+        on_host_maintenance      = null
+        preemptible              = true
+        shielded_instance_config = {
+          enable_integrity_monitoring = true
+          enable_secure_boot          = false
+          enable_vtpm                 = true
+        }
+        source_image_family  = "schedmd-v5-slurm-22-05-4-hpc-centos-7-1665675565"
+        source_image_project = "projects/wayne-eda-demo-service/global/images"
+        source_image             = null
+        tags                     = []
+
+        # Template By Source
+        instance_template = null
+
+        # Instance Definition
+        access_config  = []
+        bandwidth_tier = "platform_default"
+        enable_spot_vm = true
+        spot_instance_config = {
+          termination_action = "STOP"
+        }
+      },
+    ]
+    region            = "asia-east1"
+    zone_policy_allow = []
+    zone_policy_deny  = []
+    subnetwork_project = "way-eda-demo-host"
+    subnetwork = "dep-a"
+  },
+  {
+    enable_job_exclusive    = false
+    enable_placement_groups = false
+    network_storage         = []
+    partition_conf = {
+      ResumeTimeout  = 300
+      SuspendTimeout = 300
+      SuspendTime    = 300
+    }
+    partition_startup_scripts_timeout = 300
+    partition_startup_scripts         = []
+    partition_name                    = "debug3"
+    partition_nodes = [
+      {
+        # Group Definition
+        group_name             = "debug3"
         service_account = {email: "hpcdemo-compute@wayne-eda-demo-service.iam.gserviceaccount.com", scopes: ["https://www.googleapis.com/auth/cloud-platform"]}
         node_count_dynamic_max = 10
         node_count_static      = 0
@@ -428,10 +501,11 @@ partitions = [
         }
       },
     ]
-    region            = null
+    region            = "asia-east1"
     zone_policy_allow = []
     zone_policy_deny  = []
     subnetwork_project = "way-eda-demo-host"
     subnetwork = "dep-a"
   },
+
 ]
