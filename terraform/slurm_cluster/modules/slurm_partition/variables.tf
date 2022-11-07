@@ -19,6 +19,12 @@ variable "project_id" {
   description = "Project ID to create resources in."
 }
 
+variable "disk_encryption_key" {
+  type        = string
+  description = "KMS encrpytion key"
+}
+
+
 variable "slurm_cluster_name" {
   type        = string
   description = "Cluster name, used for resource naming and slurm accounting."
@@ -86,13 +92,13 @@ EOD
     group_name             = string
     node_conf              = map(string)
     additional_disks = list(object({
-      disk_name    = string
-      device_name  = string
-      disk_size_gb = number
-      disk_type    = string
-      disk_labels  = map(string)
-      auto_delete  = bool
-      boot         = bool
+      disk_name            = string
+      device_name          = string
+      disk_size_gb         = number
+      disk_type            = string
+      disk_labels          = map(string)
+      auto_delete          = bool
+      boot                 = bool
     }))
     access_config = list(object({
       network_tier = string

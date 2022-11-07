@@ -33,6 +33,12 @@ variable "slurm_cluster_name" {
   }
 }
 
+variable "disk_encryption_key" {
+  type        = string
+  description = "KMS key for disk encryption"
+}
+
+
 #####################
 # CONTROLLER: CLOUD #
 #####################
@@ -61,6 +67,7 @@ EOD
     disk_labels            = map(string)
     disk_size_gb           = number
     disk_type              = string
+    disk_encryption_key    = string
     enable_confidential_vm = bool
     enable_oslogin         = bool
     enable_shielded_vm     = bool
@@ -104,6 +111,7 @@ EOD
     disk_labels              = {}
     disk_size_gb             = null
     disk_type                = null
+    disk_encryption_key      = null
     enable_confidential_vm   = false
     enable_oslogin           = true
     enable_shielded_vm       = false
@@ -190,6 +198,7 @@ variable "login_nodes" {
     disk_labels            = map(string)
     disk_size_gb           = number
     disk_type              = string
+    disk_encryption_key    = string
     enable_confidential_vm = bool
     enable_oslogin         = bool
     enable_shielded_vm     = bool
@@ -271,6 +280,7 @@ EOD
       disk_labels            = map(string)
       disk_size_gb           = number
       disk_type              = string
+      disk_encryption_key    = string
       enable_confidential_vm = bool
       enable_oslogin         = bool
       enable_shielded_vm     = bool
@@ -341,6 +351,7 @@ EOD
           disk_labels              = {}
           disk_size_gb             = null
           disk_type                = null
+          disk_encryption_key      = null
           enable_confidential_vm   = false
           enable_oslogin           = true
           enable_shielded_vm       = false

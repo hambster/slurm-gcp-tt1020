@@ -54,6 +54,7 @@ module "slurm_partition" {
   subnetwork                        = each.value.subnetwork
   zone_policy_allow                 = each.value.zone_policy_allow
   zone_policy_deny                  = each.value.zone_policy_deny
+  disk_encryption_key               = var.disk_encryption_key
 }
 
 ########################
@@ -72,6 +73,7 @@ module "slurm_controller_template" {
   disk_labels              = var.controller_instance_config.disk_labels
   disk_size_gb             = var.controller_instance_config.disk_size_gb
   disk_type                = var.controller_instance_config.disk_type
+  disk_encryption_key      = var.disk_encryption_key
   enable_confidential_vm   = var.controller_instance_config.enable_confidential_vm
   enable_oslogin           = var.controller_instance_config.enable_oslogin
   enable_shielded_vm       = var.controller_instance_config.enable_shielded_vm
@@ -188,6 +190,7 @@ module "slurm_login_template" {
   disk_labels              = each.value.disk_labels
   disk_size_gb             = each.value.disk_size_gb
   disk_type                = each.value.disk_type
+  disk_encryption_key      = var.disk_encryption_key
   enable_confidential_vm   = each.value.enable_confidential_vm
   enable_oslogin           = each.value.enable_oslogin
   enable_shielded_vm       = each.value.enable_shielded_vm

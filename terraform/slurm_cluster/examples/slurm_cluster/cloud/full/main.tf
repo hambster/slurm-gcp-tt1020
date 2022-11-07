@@ -29,6 +29,7 @@ locals {
       disk_labels              = x.disk_labels
       disk_size_gb             = x.disk_size_gb
       disk_type                = x.disk_type
+      disk_encryption_key      = var.disk_encryption_key
       enable_confidential_vm   = x.enable_confidential_vm
       enable_oslogin           = x.enable_oslogin
       enable_shielded_vm       = x.enable_shielded_vm
@@ -65,6 +66,7 @@ locals {
       disk_labels              = x.disk_labels
       disk_size_gb             = x.disk_size_gb
       disk_type                = x.disk_type
+      disk_encryption_key      = var.disk_encryption_key
       enable_confidential_vm   = x.enable_confidential_vm
       enable_oslogin           = x.enable_oslogin
       enable_shielded_vm       = x.enable_shielded_vm
@@ -114,6 +116,7 @@ locals {
         disk_labels              = n.disk_labels
         disk_size_gb             = n.disk_size_gb
         disk_type                = n.disk_type
+        disk_encryption_key      = var.disk_encryption_key
         enable_confidential_vm   = n.enable_confidential_vm
         enable_oslogin           = n.enable_oslogin
         enable_shielded_vm       = n.enable_shielded_vm
@@ -278,6 +281,7 @@ module "slurm_cluster" {
   prolog_scripts                     = var.prolog_scripts
   slurmdbd_conf_tpl                  = var.slurmdbd_conf_tpl
   slurm_conf_tpl                     = var.slurm_conf_tpl
+  disk_encryption_key                = var.disk_encryption_key
 
   depends_on = [
     # Ensure services are enabled

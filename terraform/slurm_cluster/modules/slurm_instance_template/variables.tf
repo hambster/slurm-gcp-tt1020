@@ -235,6 +235,13 @@ variable "disk_type" {
   default     = "pd-standard"
 }
 
+variable "disk_encryption_key" {
+  type        = string
+  description = "KMS key for disk encryption"
+  default     = ""
+}
+
+
 variable "disk_size_gb" {
   type        = number
   description = "Boot disk size in GB."

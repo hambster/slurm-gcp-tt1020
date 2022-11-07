@@ -123,6 +123,7 @@ module "slurm_compute_template" {
   disk_labels              = each.value.disk_labels
   disk_size_gb             = each.value.disk_size_gb
   disk_type                = each.value.disk_type
+  disk_encryption_key      = var.disk_encryption_key
   enable_confidential_vm   = each.value.enable_confidential_vm
   enable_oslogin           = each.value.enable_oslogin
   enable_shielded_vm       = each.value.enable_shielded_vm

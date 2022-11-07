@@ -23,6 +23,12 @@ variable "project_id" {
   description = "Project ID to create resources in."
 }
 
+variable "disk_encryption_key" {
+  type        = string
+  description = "KMS key for disk encryption"
+}
+
+
 variable "slurm_cluster_name" {
   type        = string
   description = "Cluster name, used for resource naming."

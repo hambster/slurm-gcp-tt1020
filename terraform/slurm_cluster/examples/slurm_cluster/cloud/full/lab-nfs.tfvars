@@ -31,6 +31,7 @@ enable_bigquery_load         = false
 enable_cleanup_compute       = true
 enable_cleanup_subscriptions = false
 enable_reconfigure           = false
+disk_encryption_key          = "projects/eda-kms/locations/asia/keyRings/eda/cryptoKeys/eda_demo"
 
 ###########
 # NETWORK #
@@ -153,15 +154,15 @@ controller_instance_config = {
   service_account = {email: "hpcdemo-controller@wayne-eda-demo-service.iam.gserviceaccount.com", scopes: ["https://www.googleapis.com/auth/cloud-platform"]}
   # Template By Definition
   additional_disks = [
-    # {
-    #   disk_name    = null
-    #   device_name  = null
-    #   disk_size_gb = 128
-    #   disk_type    = "pd-standard"
-    #   disk_labels  = {}
-    #   auto_delete  = true
-    #   boot         = false
-    # },
+    {
+      disk_name    = "ctrl-extra-disk"
+      device_name  = "ctrl-extra-disk"
+      disk_size_gb = 50
+      disk_type    = "pd-standard"
+      disk_labels  = {}
+      auto_delete  = true
+      boot         = false
+    },
   ]
   can_ip_forward   = null
   disable_smt      = false
@@ -228,7 +229,17 @@ login_nodes = [
     group_name = "l0"
 
     # Template By Definition
-    additional_disks         = []
+    additional_disks         = [
+      {
+        disk_name    = "login-extra-disk"
+        device_name  = "login-extra-disk"
+        disk_size_gb = 50
+        disk_type    = "pd-standard"
+        disk_labels  = {}
+        auto_delete  = true
+        boot         = false
+      }
+    ]
     can_ip_forward           = false
     disable_smt              = false
     disk_auto_delete         = true
@@ -310,7 +321,17 @@ partitions = [
         }
 
         # Template By Definition
-        additional_disks         = []
+        additional_disks         = [
+	  {
+            disk_name    = "login-extra-disk"
+            device_name  = "login-extra-disk"
+            disk_size_gb = 50
+            disk_type    = "pd-standard"
+            disk_labels  = {}
+            auto_delete  = true
+            boot         = false
+	  }
+        ]
         can_ip_forward           = false
         disable_smt              = true
         disk_auto_delete         = true

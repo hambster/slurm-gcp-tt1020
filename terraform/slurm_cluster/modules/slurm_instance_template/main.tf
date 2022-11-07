@@ -141,6 +141,7 @@ module "instance_template" {
   # Disk
   disk_type    = var.disk_type
   disk_size_gb = var.disk_size_gb
+  disk_encryption_key = var.disk_encryption_key
   auto_delete  = var.disk_auto_delete
   disk_labels = merge(
     {
